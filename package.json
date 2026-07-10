@@ -1,0 +1,20 @@
+{
+  "name": "nugget-bench",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Demo app showing off AI Nugget + Context Nugget working together, built directly against the sibling repos (not npm).",
+  "engines": {
+    "node": ">=22.6.0"
+  },
+  "scripts": {
+    "mock-provider": "node --experimental-strip-types src/mock-provider.ts",
+    "demo:context": "node --experimental-strip-types src/context-demo.ts",
+    "demo:chat": "node --experimental-strip-types src/chat-demo.ts",
+    "demo:agent": "node --experimental-strip-types src/agent-demo.ts"
+  },
+  "dependencies": {
+    "@jxburros/ai-nugget": "file:../AI-Nugget",
+    "@jxburros/context-nugget": "file:../AI-Context-Nugget"
+  }
+}

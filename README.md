@@ -78,7 +78,9 @@ README's provider table.
 - **`demo:chat`** — the AI Nugget ↔ Context Nugget bridge
   (`asAiNuggetContextMessages`/`asAiNuggetMetadata`), an app-level
   `blocklistPolicy` (the library ships no policy defaults by design),
-  and redacted `TelemetrySink` output for a real `handler.stream` call.
+  `hasAiNuggetContext` in the telemetry sink to detect grounded calls
+  without text-matching, and redacted `TelemetrySink` output for a real
+  `handler.stream` call.
 - **`demo:agent`** — `runAgent` with a `search_notes` tool whose `execute`
   calls back into `ContextEngine.retrieveAndPack`, so tool results are
   themselves cited, budgeted context packets.

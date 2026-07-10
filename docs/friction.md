@@ -5,6 +5,31 @@ Written while building Nugget Bench against `AI-Nugget` and
 modifying either repo's source. Ordered roughly by how much it slowed things
 down.
 
+**Update:** every finding below has since been fixed or mitigated upstream,
+in both nugget repos directly (not in this app). Status per item:
+
+1. **Mitigated.** Both repos are now prepared for npm/GitHub Packages
+   publishing (`publish.yml` added to Context Nugget; AI Nugget's was already
+   in place). Once published, this app (or any consumer) can depend on
+   `"@jxburros/ai-nugget": "^0.4.1"` / `"@jxburros/context-nugget": "^0.4.0"`
+   instead of a sibling-checkout `file:` path — removing the portability
+   problem entirely. This repo still uses `file:` for now since publishing
+   is a separate, deliberate step the maintainer controls.
+2. **Fixed.** Context Nugget now commits `dist/` and ships a vendorable
+   `nugget/` folder via `npm run build:nugget`, matching AI Nugget exactly
+   (`AI-Context-Nugget` CHANGELOG 0.4.0).
+3. Not a defect — no change made.
+4. **Fixed.** AI Nugget's README now documents the `openai-compat`/local-
+   runtime `POST {baseUrl}/chat/completions` convention next to the provider
+   table.
+5. **Fixed.** The `build-agent-loop` skill now has a "`promptJson` wire
+   contract" section with the exact system-prompt text, accepted reply
+   shapes, and the tool-result turn format.
+6. **Fixed.** `ContextPacket.items` has a doc comment clarifying the naming;
+   `hasAiNuggetContext(metadata)` was added to the bridge so "did this call
+   carry packed context" no longer requires matching pack-option-dependent
+   text (see `demo:chat`'s telemetry sink for a working example).
+
 ## 1. Consuming "current repo form" only works via a sibling-checkout `file:` dependency, and that isn't portable
 
 Neither repo publishes a way to depend on "whatever's on disk right now"

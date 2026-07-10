@@ -7,7 +7,7 @@
 // OPENAI_API_KEY (or point PROVIDER/MODEL/BASE_URL at another connection).
 // See README.md.
 import { ContextEngine } from '@jxburros/context-nugget';
-import { asAiNuggetContextMessages, asAiNuggetMetadata } from '@jxburros/context-nugget/ai-nugget';
+import { asAiNuggetContextMessages, asAiNuggetMetadata, hasAiNuggetContext } from '@jxburros/context-nugget/ai-nugget';
 import { AIHandler, blocklistPolicy, literalKeySource, envKeySource } from '@jxburros/ai-nugget';
 import type { Connection, ChatMessage } from '@jxburros/ai-nugget';
 
@@ -52,7 +52,15 @@ async function main() {
   const handler = new AIHandler({
     keySource: useMock ? literalKeySource('mock-demo-key-not-real') : envKeySource(),
     policy: blocklistPolicy([/openai\/gpt-3\.5.*/]), // app-level policy; the library ships no defaults
-    telemetry: { record: (r) => void telemetryLog.push(r) },
+    telemetry: {
+      record: (r) => {
+        telemetryLog.push(r);
+        // Stable detection of "did this call carry packed context" — keys off
+        // metadata.contextPacketId rather than matching the packed system
+        // message text, whose shape depends on PackOptions.
+        console.log(`[telemetry] call ${r.callId} carried Context Nugget context:`, hasAiNuggetContext(r.metadata));
+      },
+    },
   });
 
   const connection: Connection = useMock

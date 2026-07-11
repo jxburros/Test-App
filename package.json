@@ -1,20 +1,25 @@
 {
-  "name": "nugget-bench",
+  "name": "game-vault",
   "private": true,
   "version": "0.1.0",
   "type": "module",
-  "description": "Demo app showing off AI Nugget + Context Nugget working together, built directly against the sibling repos (not npm).",
-  "engines": {
-    "node": ">=22.6.0"
-  },
   "scripts": {
-    "mock-provider": "node --experimental-strip-types src/mock-provider.ts",
-    "demo:context": "node --experimental-strip-types src/context-demo.ts",
-    "demo:chat": "node --experimental-strip-types src/chat-demo.ts",
-    "demo:agent": "node --experimental-strip-types src/agent-demo.ts"
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@jxburros/ai-nugget": "file:../AI-Nugget",
-    "@jxburros/context-nugget": "file:../AI-Context-Nugget"
+    "@jxburros/ai-nugget": "^0.4.1",
+    "@jxburros/context-nugget": "^0.4.0",
+    "@vitejs/plugin-react": "^4.4.1",
+    "vite": "^6.3.5",
+    "typescript": "^5.8.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "lucide-react": "^0.468.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2"
   }
 }

@@ -90,3 +90,5 @@ version: AI Nugget vendors a build-ready `dist/`/`nugget/`, Context Nugget
 does not (needs one manual build), and consuming either "from the repo" only
 works cleanly via `file:` deps to a sibling checkout, which is not something
 a standalone clone of this repo can satisfy on its own.
+
+<!-- GitHub Pages deployment is configured in .github/workflows/pages.yml. -->

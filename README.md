@@ -1,10 +1,8 @@
 # Nugget Bench
 
-A demo app that shows off [AI Nugget](https://github.com/jxburros/AI-Nugget) and
-[Context Nugget](https://github.com/jxburros/AI-Context-Nugget) working
-together — built directly against **the current source in those repos**, not
-their published npm packages. Neither nugget's source was modified to make
-this work.
+A Game Vault demo app that shows [AI Nugget](https://github.com/jxburros/AI-Nugget)
+and [Context Nugget](https://github.com/jxburros/AI-Context-Nugget) working
+together. The browser app uses the published packages and remains local-first.
 
 ```txt
 Context Nugget -> finds, ranks, cites, budgets, and packs context
@@ -12,36 +10,27 @@ AI Nugget     -> talks to model providers (policy, retry, redaction, agent loop)
 Nugget Bench  -> wires the two together and demonstrates both
 ```
 
-## Layout expected
+## Naming
 
-This repo is checked out as a **sibling** of `AI-Nugget` and `AI-Context-Nugget`:
+`Nugget Bench` is the repository and integration-demo name. `Game Vault` is the
+browser app currently hosted by the bench, so the private package name is
+intentionally `game-vault`.
 
-```txt
-some-folder/
-  AI-Nugget/
-  AI-Context-Nugget/
-  Test-App/          <- this repo
+## Install and run
+
+```console
+npm ci
+npm run dev
 ```
 
-`package.json` depends on both via `file:../AI-Nugget` and
-`file:../AI-Context-Nugget`. `npm install` symlinks them in, so edits to
-either sibling repo are picked up immediately without republishing anything.
-See `docs/friction.md` for why this layout is required and what it costs.
-
-## Setup
-
-```bash
-npm install
-# Context Nugget has no committed dist/ (see docs/friction.md) — build it once:
-(cd ../AI-Context-Nugget && npm run build)
-# AI-Nugget ships a committed dist/, so no build step is required there.
-```
+Open the local address printed by Vite. A production build is available with
+`npm run build`, and `npm run preview` serves that build locally.
 
 ## Run the demos
 
-Each demo is a standalone script; run the mock provider first (a tiny local
-OpenAI-compatible server, so the whole pipeline runs with no API keys and no
-network access — see `src/mock-provider.ts`):
+Each command-line demo is a standalone script. Run the tiny local,
+OpenAI-compatible mock provider first so the pipeline needs no API key and no
+external network access:
 
 ```bash
 npm run mock-provider           # leave running in one terminal
@@ -56,17 +45,22 @@ npm run demo:agent               # + agent tool loop: a `search_notes` tool
                                  # by AI Nugget's runAgent in promptJson mode
 ```
 
-### Using a real provider instead of the mock
+## Configuration
 
-`demo:chat` and `demo:agent` default to the bundled mock. To point at a real
-provider:
+The browser app does not call a model provider and does not read API keys.
+`demo:chat` and `demo:agent` default to the bundled mock. For an explicitly
+configured command-line test, set these environment variables before running a
+demo:
 
-```bash
-MOCK=0 PROVIDER=openai MODEL=gpt-4o-mini KEY_ENV=OPENAI_API_KEY OPENAI_API_KEY=sk-... npm run demo:chat
-```
+- `MOCK=0` opts out of the bundled mock provider.
+- `PROVIDER` selects an AI Nugget provider profile.
+- `MODEL` selects a model supported by that configured provider.
+- `KEY_ENV` names the environment variable holding the provider key; it
+  defaults to `OPENAI_API_KEY`.
 
-Any provider AI Nugget supports works the same way — see the AI Nugget
-README's provider table.
+Keep raw keys in the shell environment. Do not put them in source, browser
+storage, backups, screenshots, or logs. See AI Nugget's provider documentation
+for supported connections and models.
 
 ## What each demo shows
 
@@ -85,10 +79,22 @@ README's provider table.
 
 ## Friction encountered developing against both nuggets
 
-See [`docs/friction.md`](docs/friction.md) for the full list — the short
-version: AI Nugget vendors a build-ready `dist/`/`nugget/`, Context Nugget
-does not (needs one manual build), and consuming either "from the repo" only
-works cleanly via `file:` deps to a sibling checkout, which is not something
-a standalone clone of this repo can satisfy on its own.
+See [`docs/friction.md`](docs/friction.md) for the historical notes from the
+original sibling-source integration. The current app uses published package
+versions and installs from a standalone clone.
+
+## Troubleshooting
+
+- If `npm ci` reports a lockfile mismatch, confirm both `package.json` and
+  `package-lock.json` came from the same commit.
+- If the app server is not reachable, run `npm ci`, then `npm run dev`, and use
+  the exact local URL printed by Vite.
+- If a command-line demo cannot reach the mock, start `npm run mock-provider`
+  in a separate terminal and leave it running.
+- If a real-provider demo reports a missing key, confirm `KEY_ENV` names an
+  environment variable that is set in the same shell. Never paste the key into
+  the source file.
+- Browser data that fails validation is safely replaced with the built-in demo
+  library. Download a backup before manually editing browser storage.
 
 <!-- GitHub Pages deployment is configured in .github/workflows/pages.yml. -->

@@ -5,7 +5,7 @@ Written while building Nugget Bench against `AI-Nugget` and
 modifying either repo's source. Ordered roughly by how much it slowed things
 down.
 
-## 1. Consuming "current repo form" only works via a sibling-checkout `file:` dependency, and that isn't portable
+## 1. Sibling-checkout `file:` dependencies are not portable
 
 Neither repo publishes a way to depend on "whatever's on disk right now"
 other than a filesystem path. `npm install` with
@@ -54,7 +54,7 @@ correctly without ever running `npm install` inside either nugget repo (no
 complaint — flagging it because it's easy to assume a build requires the
 full devDependency install, and here it didn't.
 
-## 4. The `openai-compat` engine's URL convention has to be reverse-engineered from source
+## 4. The `openai-compat` URL convention was source-only
 
 To point AI Nugget at a local mock server (needed so this demo runs without
 real API keys or network access), the `openai-compat` profile has no

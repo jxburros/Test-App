@@ -38,7 +38,7 @@ async function main() {
     },
   });
 
-  const handler = new AIHandler({ keySource: literalKeySource('mock-demo-key-not-real') });
+  const handler = new AIHandler({ keySource: literalKeySource() });
   const connection: Connection = { id: 'mock', provider: 'openai-compat', baseUrl: 'http://localhost:8934', keyRef: { kind: 'literal', value: 'mock-demo-key-not-real' } };
 
   const agent = runAgent({

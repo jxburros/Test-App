@@ -21,8 +21,13 @@ export default function App() {
 
   useEffect(() => saveData(data), [data]);
   useEffect(() => {
-    if (timer?.running) interval.current = window.setInterval(() => setTimer((current) => current ? { ...current, elapsed: Math.floor((Date.now() - new Date(current.startedAt).getTime()) / 1000) } : current), 1000);
-    return () => clearInterval(interval.current);
+    if (timer?.running) {
+      interval.current = window.setInterval(() => setTimer((current) => current?.running ? { ...current, elapsed: current.elapsed + 1 } : current), 1000);
+    }
+    return () => {
+      window.clearInterval(interval.current);
+      interval.current = undefined;
+    };
   }, [timer?.running]);
 
   const active = data.games.find((game) => game.id === data.activeGameId) ?? data.games.find((game) => game.status === 'playing');

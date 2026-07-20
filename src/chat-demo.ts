@@ -50,7 +50,7 @@ async function main() {
   console.log(`\n=== AI Nugget: policy + telemetry + redacted call ===`);
   const telemetryLog: unknown[] = [];
   const handler = new AIHandler({
-    keySource: useMock ? literalKeySource('mock-demo-key-not-real') : envKeySource(),
+    keySource: useMock ? literalKeySource() : envKeySource(),
     policy: blocklistPolicy([/openai\/gpt-3\.5.*/]), // app-level policy; the library ships no defaults
     telemetry: { record: (r) => void telemetryLog.push(r) },
   });

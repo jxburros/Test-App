@@ -98,3 +98,9 @@ versions and installs from a standalone clone.
   library. Download a backup before manually editing browser storage.
 
 <!-- GitHub Pages deployment is configured in .github/workflows/pages.yml. -->
+
+---
+
+## Project Stewardship
+
+This project is developed by **Jeffrey** through **JX Holdings, LLC**. GitHub: [`jxburros`](https://github.com/jxburros).

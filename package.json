@@ -13,7 +13,7 @@
     "mock-provider": "node --experimental-strip-types src/mock-provider.ts"
   },
   "dependencies": {
-    "@jxburros/ai-nugget": "git+https://github.com/jxburros/AI-Nugget.git#b4d72370596633d78cccfd10301543f62b80fdf7",
+    "@jxburros/ai-nugget": "git+https://github.com/jxburros/AI-Nugget.git#f8e563fd6c23957b0885e131c5aac4e9a7851693",
     "@jxburros/context-nugget": "^0.4.0",
     "@vitejs/plugin-react": "^4.4.1",
     "vite": "^6.3.5",

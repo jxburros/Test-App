@@ -104,3 +104,7 @@ versions and installs from a standalone clone.
 ## Project Stewardship
 
 This project is developed by **Jeffrey** through **JX Holdings, LLC**. GitHub: [`jxburros`](https://github.com/jxburros).
+
+### AI Nugget adoption
+
+This branch adopts AI Nugget 0.7.5 from source commit [`f8e563fd6c23`](https://github.com/jxburros/AI-Nugget/commit/f8e563fd6c23957b0885e131c5aac4e9a7851693) while [the upstream change](https://github.com/jxburros/AI-Nugget/pull/98) is under review. The package dependency uses an immutable Git pin. App-specific model selection and provider configuration still apply.

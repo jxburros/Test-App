@@ -1,5 +1,16 @@
 # Changelog
 
+## 2026-10-27 — Codex
+
+### Changed
+- Adopt AI-Nugget 0.7.5 from source commit `b4d72370596633d78cccfd10301543f62b80fdf7` for the provider/cloud expansion; preserve application-owned policy and model selection.
+
+### Not completed
+- Live provider calls were not exercised (no configured provider test credentials).
+
+### Notes
+- Passed npm run build (TypeScript and Vite); root and agent exports resolve from the pinned package.
+
 ## Unreleased
 
 ### Fixed
